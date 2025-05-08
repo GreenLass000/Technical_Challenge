@@ -1,53 +1,29 @@
 
 # To-Do List Application
 
-This project is a To-Do list application built with **Express** (backend) and **React** (frontend), with **PostgreSQL** as the database. The backend and frontend are containerized using **Docker** for easy deployment. This README provides a complete guide on the technologies used, how the app works, and how to run the application both locally and in Docker containers.
+This project is a simple To-Do list application built with **Express** (backend) and **React** (frontend), with **PostgreSQL** as the database. The app is containerized using **Docker** for easy deployment and scalability.
+
+The app allows users to create, edit, delete, and mark tasks as completed.
 
 ---
 
-## Technologies Used 
+## Technologies Used
 
-### 1. **Node.js 23 (Backend)**
-
-- **Why Node.js?**  
-  Node.js is used for the backend because it's a powerful JavaScript runtime environment that allows us to use JavaScript on the server-side. It's known for its non-blocking, event-driven architecture, making it ideal for real-time applications like to-do lists.
-  
-- **Why Node.js version 23?**  
-  The project is using Node.js 23 to take advantage of the latest performance improvements, features, and security updates that come with the latest release of Node.js.
-
-### 2. **Express (Backend Framework)**
-
-- **Why Express?**  
-  Express is a lightweight and flexible web framework for Node.js, making it easy to build REST APIs. It helps to manage routes, request handling, middleware, and other HTTP functionalities, speeding up the development of the backend.
-
-### 3. **React (Frontend)**
-
-- **Why React?**  
-  React is a popular JavaScript library for building user interfaces. It is used for creating dynamic, responsive UIs with reusable components. React’s virtual DOM makes updates faster and more efficient, which is perfect for applications with frequent UI changes like a to-do list.
-
-- **Why Vite?**  
-  Vite is used as the build tool for the React application. It provides fast hot module replacement (HMR), fast builds, and optimizations out of the box. Vite is chosen for its speed and efficiency, especially during development.
-
-### 4. **PostgreSQL (Database)**
-
-- **Why PostgreSQL?**  
-  PostgreSQL is a robust, open-source relational database system. It supports complex queries and ensures data integrity and reliability. It’s used here to store the tasks in the to-do list application.
-
-### 5. **Prisma (ORM)**
-
-- **Why Prisma?**  
-  Prisma is an ORM (Object-Relational Mapping) tool used to interact with PostgreSQL. It simplifies database access and helps to write cleaner, type-safe database queries. It also manages schema migrations easily.
-
-### 6. **Docker (Containerization)**
-
-- **Why Docker?**  
-  Docker is used to containerize the application for easy deployment and consistency across different environments. By using Docker, we ensure that the application runs the same way on any system, regardless of the local configuration.
+| Technology | Reason for Use |
+|------------|----------------|
+| **Node.js 23** | The latest version of Node.js is used to run the backend. Node.js is non-blocking and ideal for handling real-time requests in applications like this. |
+| **Express** | Express is used to create the REST API for the backend. It simplifies route handling, middleware management, and request processing. |
+| **React** | React is used for building the frontend. It enables efficient updates to the UI through a virtual DOM, and its component-based structure helps with reusability and maintainability. |
+| **Vite** | Vite is used for fast bundling and HMR (Hot Module Replacement) during development. It’s chosen for its speed and optimization features. |
+| **PostgreSQL** | PostgreSQL is used as the relational database to store task data, including task details like title, description, and completion status. |
+| **Prisma** | Prisma is used as an ORM to interact with PostgreSQL. It simplifies database queries, helps manage schema migrations, and ensures type-safety. |
+| **Docker** | Docker is used to containerize the application, ensuring that it runs consistently across different environments. It simplifies deployment and scaling. |
 
 ---
 
 ## Project Structure
 
-The project is divided into two main parts: the **backend** and the **frontend**.
+The project is organized into two main parts: the **backend** and the **frontend**.
 
 ```
 /project
@@ -70,6 +46,35 @@ The project is divided into two main parts: the **backend** and the **frontend**
 
 ---
 
+## Database Schema
+
+The application uses PostgreSQL to store task data. The database schema is defined in **`prisma/schema.prisma`**.
+
+### Table: `Task`
+
+| Field       | Type     | Description                        |
+|-------------|----------|------------------------------------|
+| `id`        | `Int`    | Primary key, auto-incrementing ID. |
+| `title`     | `String` | Title of the task.                |
+| `description`| `String` | Description of the task.          |
+| `completed` | `Boolean`| Status of the task (completed or not). |
+| `createdAt` | `DateTime`| Date and time when the task was created. |
+
+```prisma
+model Task {
+  id          Int      @id @default(autoincrement())
+  title       String
+  description String
+  completed   Boolean  @default(false)
+  createdAt   DateTime @default(now())
+}
+```
+
+### Relationships
+The application only has a single table (`Task`) in the database, without any relationships to other tables.
+
+---
+
 ## Running the Application
 
 ### Without Docker
@@ -77,8 +82,8 @@ The project is divided into two main parts: the **backend** and the **frontend**
 1. **Clone the repository**:
 
    ```bash
-   git clone https://github.com/yourusername/todolist-app.git
-   cd todolist-app
+   git clone https://github.com/GreenLass000/Technical_Challenge.git
+   cd Technical_Challenge
    ```
 
 2. **Install dependencies for the backend**:
@@ -160,7 +165,7 @@ The project is divided into two main parts: the **backend** and the **frontend**
 
 ---
 
-## Logic Followed
+## Application Logic
 
 1. **Frontend (React)**: The React application interacts with the backend API to perform CRUD operations on tasks. Each task has a title, description, completion status, and a creation timestamp. Tasks can be added, deleted, updated, or marked as completed.
 
@@ -177,4 +182,3 @@ The project is divided into two main parts: the **backend** and the **frontend**
 This application demonstrates how to build a simple full-stack to-do list application using modern web technologies such as React, Express, PostgreSQL, Prisma, and Docker. It showcases how to build, containerize, and deploy a full-stack application with database support.
 
 Feel free to extend this project by adding more features or optimizing the code. Enjoy building with Docker and modern JavaScript frameworks!
-
