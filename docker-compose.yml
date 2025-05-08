@@ -1,0 +1,49 @@
+services:
+  back:
+    build:
+      context: .
+      dockerfile: back/Dockerfile
+    container_name: back
+    ports:
+      - "4000:4000"
+    environment:
+      - DATABASE_URL=postgresql://postgres:postgres@db:5432/todolist?schema=public
+    depends_on:
+      - db
+    networks:
+      - todolist-network
+    restart: unless-stopped
+
+  front:
+    build:
+      context: .
+      dockerfile: front/Dockerfile
+    container_name: front
+    ports:
+      - "3000:3000"
+    depends_on:
+      - back
+    networks:
+      - todolist-network
+    restart: unless-stopped
+
+  db:
+    image: postgres:13
+    container_name: db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: todolist
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - todolist-network
+    ports:
+      - "5432:5432"
+
+networks:
+  todolist-network:
+    driver: bridge
+
+volumes:
+  postgres_data:
