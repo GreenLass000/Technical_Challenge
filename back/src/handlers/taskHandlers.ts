@@ -84,10 +84,10 @@ export async function markTaskAsCompletedHandler(req: Request, res: Response): P
 	}
 }
 
-export async function unCompleteTaskHandler(req: Request, res: Response): Promise<void> {
+export async function undoTaskHandler(req: Request, res: Response): Promise<void> {
 	const taskId = parseInt(req.params.id, 10);
 	try {
-		const task = await taskModel.unCompleteTask(taskId);
+		const task = await taskModel.undoTask(taskId);
 		if (task) {
 			res.json(task);
 		} else {

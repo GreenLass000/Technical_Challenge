@@ -9,6 +9,6 @@ router.post('/tasks', taskHandler.createTaskHandler);
 router.put('/tasks/:id', taskHandler.updateTaskHandler);
 router.delete('/tasks/:id', taskHandler.deleteTaskHandler);
 router.patch('/tasks/:id/completed', taskHandler.markTaskAsCompletedHandler);
-router.patch('/tasks/:id/undo', taskHandler.unCompleteTaskHandler);
+router.patch('/tasks/:id/undo', taskHandler.undoTaskHandler);
 
 export default router;

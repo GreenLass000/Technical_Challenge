@@ -7,6 +7,7 @@ interface TaskItemProps {
 	completed: boolean;
 	createdAt: string;
 	onComplete: () => void;
+	onUndo: () => void;
 	onDelete: () => void;
 	onEdit: () => void;
 }
@@ -18,6 +19,7 @@ const TaskItem: React.FC<TaskItemProps> = ({
 	completed,
 	createdAt,
 	onComplete,
+	onUndo,
 	onDelete,
 	onEdit,
 }) => {
@@ -29,7 +31,8 @@ const TaskItem: React.FC<TaskItemProps> = ({
 			{completed ? "Completed" : "Pending"}
 		</p>
 		<p className="text-gray-400 text-xs">{new Date(createdAt).toLocaleDateString()}</p>
-		<button className="mt-2 bg-blue-500 text-white px-4 py-2 rounded-md" onClick={onComplete}>
+		<button className="mt-2 bg-blue-500 text-white px-4 py-2 rounded-md"
+			onClick={completed ? onUndo : onComplete}>
 			{completed ? "Undo" : "Complete"}
 		</button>
 		<button className="mt-2 ml-2 bg-red-500 text-white px-4 py-2 rounded-md" onClick={onDelete}>

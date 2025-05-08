@@ -41,7 +41,7 @@ export async function markTaskAsCompleted(id: number) {
 	});
 }
 
-export async function unCompleteTask(id: number) {
+export async function undoTask(id: number) {
 	return await prisma.task.update({
 		where: { id },
 		data: { completed: false },

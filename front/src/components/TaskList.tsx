@@ -32,7 +32,19 @@ const TaskList: React.FC = () => {
 			.then(() => {
 				setTasks((prevTasks) =>
 					prevTasks.map((task) =>
-					task.id === taskId ? { ...task, completed: true } : task
+						task.id === taskId ? { ...task, completed: true } : task
+					)
+				);
+			})
+			.catch((error) => console.error("Error completing task:", error));
+	};
+
+	const handleUndo = (taskId: number) => {
+		axios.patch(`http://localhost:4000/tasks/${taskId}/undo`)
+			.then(() => {
+				setTasks((prevTasks) =>
+					prevTasks.map((task) =>
+						task.id === taskId ? { ...task, completed: false } : task
 					)
 				);
 			})
@@ -116,6 +128,7 @@ const TaskList: React.FC = () => {
 			key={task.id}
 			{...task}
 			onComplete={() => handleComplete(task.id)}
+			onUndo={() => handleUndo(task.id)}
 			onDelete={() => handleDelete(task.id)}
 			onEdit={() => handleEdit(task.id)}
 		/>
