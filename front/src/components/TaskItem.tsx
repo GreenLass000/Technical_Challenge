@@ -1,6 +1,7 @@
 import React from "react";
 
 interface TaskItemProps {
+  id: number;
   title: string;
   description: string;
   completed: boolean;
@@ -11,6 +12,7 @@ interface TaskItemProps {
 }
 
 const TaskItem: React.FC<TaskItemProps> = ({
+  id,
   title,
   description,
   completed,
@@ -20,7 +22,7 @@ const TaskItem: React.FC<TaskItemProps> = ({
   onEdit,
 }) => {
   return (
-	<div className="border p-4 mb-2 rounded-md shadow-sm bg-white">
+	<div key={id} className="border p-4 mb-2 rounded-md shadow-sm bg-white">
 	  <h3 className="font-bold text-lg">{title}</h3>
 	  <p className="text-gray-600">{description}</p>
 	  <p className={`text-sm ${completed ? "text-green-500" : "text-red-500"}`}>
@@ -42,7 +44,7 @@ const TaskItem: React.FC<TaskItemProps> = ({
 	  <button
 		className="mt-2 ml-2 bg-yellow-500 text-white px-4 py-2 rounded-md"
 		onClick={onEdit}
-		>
+	  >
 		Edit
 	  </button>
 	</div>
