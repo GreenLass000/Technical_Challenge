@@ -1,69 +1,85 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import TaskItem from "./TaskItem";
 
 interface Task {
-	id: number;
-	title: string;
-	description: string;
-	completed: boolean;
-	createdAt: string;
+  id: number;
+  title: string;
+  description: string;
+  completed: boolean;
+  createdAt: string;
 }
 
 const TaskList: React.FC = () => {
-	const [tasks, setTasks] = React.useState<Task[]>([
-		{
-			id: 1,
-			title: "Task 1",
-			description: "Description for Task 1",
-			completed: false,
-			createdAt: new Date().toISOString(),
-		},
-		{
-			id: 2,
-			title: "Task 2",
-			description: "Description for Task 2",
-			completed: true,
-			createdAt: new Date().toISOString(),
-		},
-		{
-			id: 3,
-			title: "Task 3",
-			description: "Description for Task 3",
-			completed: false,
-			createdAt: new Date().toISOString(),
-		},
-		{
-			id: 4,
-			title: "Task 4",
-			description: "Description for Task 4",
-			completed: true,
-			createdAt: new Date().toISOString(),
-		}
-	]);
+  const [tasks, setTasks] = useState<Task[]>([]);
 
-	return (
-		<div className="p-4">
-			<h2 className="text-2xl font-bold mb-4">Task List</h2>
-			{tasks.map((task) => (
-				<div key={task.id} className="border p-4 mb-2 rounded-md shadow-sm bg-white">
-					<h3 className="font-bold text-lg">{task.title}</h3>
-					<p className="text-gray-600">{task.description}</p>
-					<p className={`text-sm ${task.completed ? "text-green-500" : "text-red-500"}`}>
-						{task.completed ? "Completed" : "Pending"}
-					</p>
-					<p className="text-gray-400 text-xs">{new Date(task.createdAt).toLocaleDateString()}</p>
-					<button className="mt-2 bg-blue-500 text-white px-4 py-2 rounded-md">
-						{task.completed ? "Undo" : "Complete"}
-					</button>
-					<button className="mt-2 ml-2 bg-red-500 text-white px-4 py-2 rounded-md">
-						Delete
-					</button>
-					<button className="mt-2 ml-2 bg-yellow-500 text-white px-4 py-2 rounded-md">
-						Edit
-					</button>
-				</div>
-			))}
-		</div>
-	);
-}
+  // Obtener las tareas desde la API
+  useEffect(() => {
+	axios
+	  .get("http://localhost:3000/tasks")
+	  .then((response) => setTasks(response.data))
+	  .catch((error) => console.error("Error fetching tasks:", error));
+  }, []);
+
+  // Completar tarea
+  const handleComplete = (taskId: number) => {
+	axios
+	  .patch(`http://localhost:3000/tasks/${taskId}/completed`)
+	  .then(() => {
+		setTasks((prevTasks) =>
+		  prevTasks.map((task) =>
+			task.id === taskId ? { ...task, completed: true } : task
+		  )
+		);
+	  })
+	  .catch((error) => console.error("Error completing task:", error));
+  };
+
+  // Eliminar tarea
+  const handleDelete = (taskId: number) => {
+	axios
+	  .delete(`http://localhost:3000/tasks/${taskId}`)
+	  .then(() => {
+		setTasks((prevTasks) => prevTasks.filter((task) => task.id !== taskId));
+	  })
+	  .catch((error) => console.error("Error deleting task:", error));
+  };
+
+  // Editar tarea
+  const handleEdit = (taskId: number) => {
+	const updatedTitle = prompt("Enter new title");
+	const updatedDescription = prompt("Enter new description");
+	if (updatedTitle && updatedDescription) {
+	  axios
+		.put(`http://localhost:3000/tasks/${taskId}`, {
+		  title: updatedTitle,
+		  description: updatedDescription,
+		})
+		.then((response) => {
+		  setTasks((prevTasks) =>
+			prevTasks.map((task) =>
+			  task.id === taskId ? { ...task, ...response.data } : task
+			)
+		  );
+		})
+		.catch((error) => console.error("Error updating task:", error));
+	}
+  };
+
+  return (
+	<div className="p-4">
+	  <h2 className="text-2xl font-bold mb-4">Task List</h2>
+	  {tasks.map((task) => (
+		<TaskItem
+		  key={task.id}
+		  {...task}
+		  onComplete={() => handleComplete(task.id)}
+		  onDelete={() => handleDelete(task.id)}
+		  onEdit={() => handleEdit(task.id)}
+		/>
+	  ))}
+	</div>
+  );
+};
 
 export default TaskList;
