@@ -27,3 +27,14 @@ export async function getTaskByIdHandler(req: Request, res: Response): Promise<v
   }
 }
 
+export async function createTaskHandler(req: Request, res: Response): Promise<void> {
+  const { title, description } = req.body;
+  try {
+	const newTask = await taskModel.createTask({ title, description });
+	res.status(201).json(newTask);
+  } catch (e) {
+	console.log(e);
+	res.status(500).json({ message: "Error creating task" });
+  }
+}
+
