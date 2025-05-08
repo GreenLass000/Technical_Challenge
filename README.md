@@ -122,6 +122,8 @@ The application only has a single table (`Task`) in the database, without any re
 
    ```bash
    cd back
+   npx prisma migrate dev --name init
+   npx prisma generate
    yarn run start
    ```
 

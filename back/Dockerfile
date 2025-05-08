@@ -4,12 +4,12 @@ WORKDIR /app
 
 COPY back/package*.json ./
 
+RUN npm install -g yarn --force
+
 RUN yarn install
 
 COPY back/ .
 
-RUN yarn prisma migrate deploy
-
 EXPOSE 4000
 
-CMD ["yarn", "start"]
+CMD ["yarn", "run", "start"]
