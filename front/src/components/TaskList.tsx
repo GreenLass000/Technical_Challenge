@@ -13,18 +13,22 @@ interface Task {
 const TaskList: React.FC = () => {
   const [tasks, setTasks] = useState<Task[]>([]);
 
-  // Obtener las tareas desde la API
   useEffect(() => {
 	axios
-	  .get("http://localhost:3000/tasks")
-	  .then((response) => setTasks(response.data))
+	  .get("http://localhost:4000/tasks")
+	  .then((response) => {
+		if (Array.isArray(response.data)) {
+		  setTasks(response.data);  // Solo actualiza si la respuesta es un array
+		} else {
+		  console.error("Error: Response is not an array", response.data);
+		}
+	  })
 	  .catch((error) => console.error("Error fetching tasks:", error));
   }, []);
 
-  // Completar tarea
   const handleComplete = (taskId: number) => {
 	axios
-	  .patch(`http://localhost:3000/tasks/${taskId}/completed`)
+	  .patch(`http://localhost:4000/tasks/${taskId}/completed`)
 	  .then(() => {
 		setTasks((prevTasks) =>
 		  prevTasks.map((task) =>
@@ -35,23 +39,21 @@ const TaskList: React.FC = () => {
 	  .catch((error) => console.error("Error completing task:", error));
   };
 
-  // Eliminar tarea
   const handleDelete = (taskId: number) => {
 	axios
-	  .delete(`http://localhost:3000/tasks/${taskId}`)
+	  .delete(`http://localhost:4000/tasks/${taskId}`)
 	  .then(() => {
 		setTasks((prevTasks) => prevTasks.filter((task) => task.id !== taskId));
 	  })
 	  .catch((error) => console.error("Error deleting task:", error));
   };
 
-  // Editar tarea
   const handleEdit = (taskId: number) => {
 	const updatedTitle = prompt("Enter new title");
 	const updatedDescription = prompt("Enter new description");
 	if (updatedTitle && updatedDescription) {
 	  axios
-		.put(`http://localhost:3000/tasks/${taskId}`, {
+		.put(`http://localhost:4000/tasks/${taskId}`, {
 		  title: updatedTitle,
 		  description: updatedDescription,
 		})
