@@ -116,7 +116,7 @@ The application only has a single table (`Task`) in the database, without any re
 
 1. **Frontend (React)**: The React application interacts with the backend API to perform CRUD operations on tasks. Each task has a title, description, completion status, and a creation timestamp. Tasks can be added, deleted, updated, or marked as completed.
 
-2. **Backend (Express)**: The Express backend provides RESTful API endpoints for interacting with the tasks. It handles routes for CRUD operations and communicates with the PostgreSQL database using Prisma ORM.
+2. **Backend (Express)**: The Express backend exposes a well-structured suite of RESTful API endpoints that leverage idempotent HTTP verbs wherever appropriate, ensuring predictable, repeatable interactions. It orchestrates full CRUD functionality while communicating with a PostgreSQL database through Prisma ORM.
 
 3. **Database (PostgreSQL)**: PostgreSQL stores all task-related data. The `Task` model has fields for `id`, `title`, `description`, `completed`, and `createdAt`.
 
