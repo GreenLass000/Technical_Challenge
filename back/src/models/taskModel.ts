@@ -34,3 +34,9 @@ export async function deleteTask(id: number) {
   });
 }
 
+export async function markTaskAsCompleted(id: number) {
+  return await prisma.task.update({
+	where: { id },
+	data: { completed: true },
+  });
+}
