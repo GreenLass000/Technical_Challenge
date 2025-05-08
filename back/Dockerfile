@@ -11,6 +11,7 @@ RUN yarn install
 COPY back/ .
 COPY back/.env ./
 
+RUN mkdir -p ./src/generated/prisma
 RUN npx prisma generate
 
 EXPOSE 4000

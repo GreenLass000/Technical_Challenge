@@ -5,7 +5,7 @@
   "main": "dist/index.js",
   "scripts": {
     "build": "rm -rf dist/ && tsc",
-    "start": " yarn prisma migrate deploy && npx prisma generate && yarn run build && env-cmd node dist/index.js"
+    "start": " yarn prisma migrate deploy && yarn run build && env-cmd node dist/index.js"
   },
   "author": "Marcos Navarro",
   "license": "ISC",
