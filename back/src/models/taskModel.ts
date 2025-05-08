@@ -15,3 +15,9 @@ export async function getTaskById(id: number) {
   });
 }
 
+export async function createTask(taskData: { title: string, description: string }) {
+  return await prisma.task.create({
+	data: taskData,
+  });
+}
+
