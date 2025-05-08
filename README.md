@@ -122,7 +122,7 @@ The application only has a single table (`Task`) in the database, without any re
 
    ```bash
    cd back
-   yarn start
+   yarn run start
    ```
 
 7. **Run the frontend**:
@@ -131,7 +131,7 @@ The application only has a single table (`Task`) in the database, without any re
 
    ```bash
    cd front
-   npm start
+   npm run dev
    ```
 
 ### With Docker
@@ -139,8 +139,8 @@ The application only has a single table (`Task`) in the database, without any re
 1. **Clone the repository**:
 
    ```bash
-   git clone https://github.com/yourusername/todolist-app.git
-   cd todolist-app
+   git clone https://github.com/GreenLass000/Technical_Challenge.git
+   cd Technical_Challenge
    ```
 
 2. **Build and run the Docker containers**:
