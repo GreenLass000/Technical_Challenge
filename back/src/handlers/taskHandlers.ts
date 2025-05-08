@@ -83,3 +83,19 @@ export async function markTaskAsCompletedHandler(req: Request, res: Response): P
 	res.status(500).json({ message: "Error marking task as completed" });
   }
 }
+
+export async function unCompleteTaskHandler(req: Request, res: Response): Promise<void> {
+	const taskId = parseInt(req.params.id, 10);  // Obtener el ID de la tarea
+	try {
+	  const task = await taskModel.unCompleteTask(taskId);
+  
+	  if (task) {
+		res.json(task);
+	  } else {
+		res.status(404).json({ message: 'Task not found' });
+	  }
+	} catch (e) {
+	  console.log(e);
+	  res.status(500).json({ message: "Error marking task as not completed" });
+	}
+  }

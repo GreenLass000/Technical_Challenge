@@ -40,3 +40,10 @@ export async function markTaskAsCompleted(id: number) {
 	data: { completed: true },
   });
 }
+
+export async function unCompleteTask(id: number) {
+	return await prisma.task.update({
+	  where: { id },
+	  data: { completed: false },
+	});
+  }
