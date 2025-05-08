@@ -14,7 +14,6 @@ export async function addTaskHandler(req: Request, res: Response): Promise<void>
 }
 
 async function insertTask(task: Record<any, any>[]): Promise<number> {
-	// aquí se guarda en bd
 	console.log(task);
 	return 200;
 }
