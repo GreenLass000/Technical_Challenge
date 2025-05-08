@@ -5,7 +5,7 @@ This project is a To-Do list application built with **Express** (backend) and **
 
 ---
 
-## Technologies Used
+## Technologies Used 
 
 ### 1. **Node.js 23 (Backend)**
 
