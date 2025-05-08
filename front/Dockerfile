@@ -10,4 +10,8 @@ COPY front/ .
 
 EXPOSE 3000
 
-CMD ["npm", "run", "dev"]
+RUN npm run build
+
+RUN npm install -g serve --force
+
+CMD ["serve", "-s", "dist", "-p", "3000"]
