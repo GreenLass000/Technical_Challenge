@@ -38,3 +38,19 @@ export async function createTaskHandler(req: Request, res: Response): Promise<vo
   }
 }
 
+export async function updateTaskHandler(req: Request, res: Response): Promise<void> {
+  const taskId = parseInt(req.params.id, 10);
+  const { title, description, completed } = req.body;
+  try {
+	const updatedTask = await taskModel.updateTask(taskId, { title, description, completed });
+	if (updatedTask) {
+	  res.json(updatedTask);
+	} else {
+	  res.status(404).json({ message: 'Task not found' });
+	}
+  } catch (e) {
+	console.log(e);
+	res.status(500).json({ message: "Error updating task" });
+  }
+}
+
