@@ -28,3 +28,9 @@ export async function updateTask(id: number, taskUpdates: { title?: string, desc
   });
 }
 
+export async function deleteTask(id: number) {
+  return await prisma.task.delete({
+	where: { id },
+  });
+}
+
