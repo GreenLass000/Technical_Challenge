@@ -88,5 +88,4 @@ public/
 
 # Prisma
 prisma/.env
-prisma/migrations/
 src/generated/
