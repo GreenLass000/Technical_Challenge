@@ -9,6 +9,9 @@ RUN npm install -g yarn --force
 RUN yarn install
 
 COPY back/ .
+COPY back/.env ./
+
+RUN npx prisma generate
 
 EXPOSE 4000
 
