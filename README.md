@@ -77,65 +77,6 @@ The application only has a single table (`Task`) in the database, without any re
 
 ## Running the Application
 
-### Without Docker
-
-1. **Clone the repository**:
-
-   ```bash
-   git clone https://github.com/GreenLass000/Technical_Challenge.git
-   cd Technical_Challenge
-   ```
-
-2. **Install dependencies for the backend**:
-
-   ```bash
-   cd back
-   yarn install
-   ```
-
-3. **Install dependencies for the frontend**:
-
-   ```bash
-   cd front
-   npm install
-   ```
-
-4. **Configure the `.env` file**:
-
-   Create a `.env` file in the `back` directory with the following content:
-
-   ```env
-   DATABASE_URL=postgresql://postgres:postgres@localhost:5432/todolist?schema=public
-   ```
-
-5. **Start PostgreSQL**:
-
-   Make sure PostgreSQL is running locally. You can use Docker or install it natively. If you're using Docker for PostgreSQL:
-
-   ```bash
-   docker run --name postgres -e POSTGRES_PASSWORD=postgres -p 5432:5432 -d postgres
-   ```
-
-6. **Run the backend**:
-
-   Start the backend server:
-
-   ```bash
-   cd back
-   npx prisma migrate dev --name init
-   npx prisma generate
-   yarn run start
-   ```
-
-7. **Run the frontend**:
-
-   Start the frontend server:
-
-   ```bash
-   cd front
-   npm run dev
-   ```
-
 ### With Docker
 
 1. **Clone the repository**:
@@ -147,11 +88,7 @@ The application only has a single table (`Task`) in the database, without any re
 
 2. **Configure the `.env` file**:
 
-   Create a `.env` file in the `back` directory with the following content:
-
-   ```env
-   DATABASE_URL=postgresql://postgres:postgres@db:5432/todolist?schema=public
-   ```
+   The `.env` file is already included in the repository by default to simplify testing the project.
 
 3. **Build and run the Docker containers**:
 

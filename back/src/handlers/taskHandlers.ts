@@ -5,7 +5,7 @@ import * as taskModel from '../models/taskModel';
 export async function getTasksHandler(req: Request, res: Response): Promise<void> {
 	try {
 		const tasks = await taskModel.getTasks();
-		res.json(tasks);
+		res.status(200).json(tasks);
 	} catch (e) {
 		console.log(e);
 		res.status(500).json({ message: "Error fetching tasks" });
@@ -17,7 +17,7 @@ export async function getTaskByIdHandler(req: Request, res: Response): Promise<v
 	try {
 		const task = await taskModel.getTaskById(taskId);
 		if (task) {
-			res.json(task);
+			res.status(200).json(task);
 		} else {
 			res.status(404).json({ message: 'Task not found' });
 		}
@@ -44,7 +44,7 @@ export async function updateTaskHandler(req: Request, res: Response): Promise<vo
 	try {
 		const updatedTask = await taskModel.updateTask(taskId, { title, description, completed });
 		if (updatedTask) {
-			res.json(updatedTask);
+			res.status(200).json(updatedTask);
 		} else {
 			res.status(404).json({ message: 'Task not found' });
 		}
@@ -74,7 +74,7 @@ export async function markTaskAsCompletedHandler(req: Request, res: Response): P
 	try {
 		const task = await taskModel.markTaskAsCompleted(taskId);
 		if (task) {
-			res.json(task);
+			res.status(100).json(task);
 		} else {
 			res.status(404).json({ message: 'Task not found' });
 		}
@@ -89,7 +89,7 @@ export async function undoTaskHandler(req: Request, res: Response): Promise<void
 	try {
 		const task = await taskModel.undoTask(taskId);
 		if (task) {
-			res.json(task);
+			res.status(200).json(task);
 		} else {
 			res.status(404).json({ message: 'Task not found' });
 		}
