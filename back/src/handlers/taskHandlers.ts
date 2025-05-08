@@ -54,3 +54,32 @@ export async function updateTaskHandler(req: Request, res: Response): Promise<vo
   }
 }
 
+export async function deleteTaskHandler(req: Request, res: Response): Promise<void> {
+  const taskId = parseInt(req.params.id, 10);
+  try {
+	const deleted = await taskModel.deleteTask(taskId);
+	if (deleted) {
+	  res.status(204).send();
+	} else {
+	  res.status(404).json({ message: 'Task not found' });
+	}
+  } catch (e) {
+	console.log(e);
+	res.status(500).json({ message: "Error deleting task" });
+  }
+}
+
+export async function markTaskAsCompletedHandler(req: Request, res: Response): Promise<void> {
+  const taskId = parseInt(req.params.id, 10);
+  try {
+	const task = await taskModel.markTaskAsCompleted(taskId);
+	if (task) {
+	  res.json(task);
+	} else {
+	  res.status(404).json({ message: 'Task not found' });
+	}
+  } catch (e) {
+	console.log(e);
+	res.status(500).json({ message: "Error marking task as completed" });
+  }
+}
