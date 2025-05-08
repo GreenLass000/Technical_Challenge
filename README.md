@@ -145,19 +145,27 @@ The application only has a single table (`Task`) in the database, without any re
    cd Technical_Challenge
    ```
 
-2. **Build and run the Docker containers**:
+2. **Configure the `.env` file**:
+
+   Create a `.env` file in the `back` directory with the following content:
+
+   ```env
+   DATABASE_URL=postgresql://postgres:postgres@db:5432/todolist?schema=public
+   ```
+
+3. **Build and run the Docker containers**:
 
    ```bash
    docker-compose up --build
    ```
 
-3. **Access the application**:
+4. **Access the application**:
 
    - **Frontend**: Open [http://localhost:3000](http://localhost:3000) in your browser.
    - **Backend**: The API will be available at [http://localhost:4000](http://localhost:4000).
    - **PostgreSQL**: The database will be running at `localhost:5432`.
 
-4. **Stopping the containers**:
+5. **Stopping the containers**:
 
    To stop and remove the containers, use:
 

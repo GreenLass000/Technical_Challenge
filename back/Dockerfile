@@ -10,6 +10,8 @@ RUN yarn install
 
 COPY back/ .
 
+RUN npx prisma generate
+
 EXPOSE 4000
 
 CMD ["yarn", "run", "start"]
